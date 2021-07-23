@@ -423,7 +423,7 @@ export default class Dashboard extends Component {
             name="search"
             value={this.state.search}
             onChange={this.onChange}
-            placeholder="Search by product name"
+            placeholder="Search by car name"
             required
           />
           <Table aria-label="simple table">
