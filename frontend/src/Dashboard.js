@@ -237,7 +237,7 @@ export default class Dashboard extends Component {
             size="small"
             onClick={this.handleProductOpen}
           >
-            Add Product
+            Add Car
           </Button>
           <Button
             className="button_style"
@@ -275,7 +275,7 @@ export default class Dashboard extends Component {
               name="desc"
               value={this.state.desc}
               onChange={this.onChange}
-              placeholder="Description"
+              placeholder="Comment"
               required
             /><br />
             <TextField
@@ -355,7 +355,7 @@ export default class Dashboard extends Component {
               name="desc"
               value={this.state.desc}
               onChange={this.onChange}
-              placeholder="Description"
+              placeholder="Your Comment here !"
               required
             /><br />
             <TextField
@@ -408,7 +408,7 @@ export default class Dashboard extends Component {
             <Button
               disabled={this.state.name == '' || this.state.desc == '' || this.state.discount == '' || this.state.price == '' || this.state.file == null}
               onClick={(e) => this.addProduct()} color="primary" autoFocus>
-              Add Product
+              Add Car
             </Button>
           </DialogActions>
         </Dialog>
@@ -431,7 +431,7 @@ export default class Dashboard extends Component {
               <TableRow>
                 <TableCell align="center">Name</TableCell>
                 <TableCell align="center">Image</TableCell>
-                <TableCell align="center">Description</TableCell>
+                <TableCell align="center">Comment</TableCell>
                 <TableCell align="center">Price</TableCell>
                 <TableCell align="center">Discount</TableCell>
                 <TableCell align="center">Action</TableCell>
