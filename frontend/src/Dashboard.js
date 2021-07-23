@@ -249,14 +249,14 @@ export default class Dashboard extends Component {
           </Button>
         </div>
 
-        {/* Edit Product */}
+        {/* Edit Car */}
         <Dialog
           open={this.state.openProductEditModal}
           onClose={this.handleProductClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <DialogTitle id="alert-dialog-title">Edit Product</DialogTitle>
+          <DialogTitle id="alert-dialog-title">Edit Car</DialogTitle>
           <DialogContent>
             <TextField
               id="standard-basic"
@@ -324,7 +324,7 @@ export default class Dashboard extends Component {
             <Button
               disabled={this.state.name == '' || this.state.desc == '' || this.state.discount == '' || this.state.price == ''}
               onClick={(e) => this.updateProduct()} color="primary" autoFocus>
-              Edit Product
+              Edit Car
             </Button>
           </DialogActions>
         </Dialog>
