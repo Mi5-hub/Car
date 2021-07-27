@@ -1,16 +1,26 @@
+
 var express = require("express");
 var app = express();
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 var cors = require('cors');
+var myRouter = express.Router();;
 var multer = require('multer'),
   bodyParser = require('body-parser'),
   path = require('path');
 var mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost/Car",{ useNewUrlParser: true , useUnifiedTopology: true});
+mongoose.connect("mongodb://localhost/Car", { useNewUrlParser: true, useUnifiedTopology: true });
 var fs = require('fs');
 var product = require("./model/product.js");
 var user = require("./model/user.js");
+const { report } = require("process");
+
+var db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+  console.log("connecté à Mongoose")
+});
 
 var dir = './uploads';
 var upload = multer({
@@ -43,7 +53,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 
 app.use("/", (req, res, next) => {
   try {
-    if (req.path == "/login" || req.path == "/register" || req.path == "/") {
+    if (req.path == "/login" || req.path == "/register" || req.path == "/getAll" ) {
       next();
     } else {
       /* decode jwt token if authorized*/
@@ -67,12 +77,7 @@ app.use("/", (req, res, next) => {
   }
 })
 
-app.get("/", (req, res) => {
-  res.status(200).json({
-    status: true,
-    title: 'Apis'
-  });
-});
+
 
 /* login api */
 app.post("/login", (req, res) => {
@@ -342,7 +347,7 @@ app.get("/get-product", (req, res) => {
                 current_page: page,
                 total: count,
                 pages: Math.ceil(count / perPage),
-              });
+              }), console.log("products ==========++>", products);
             } else {
               res.status(400).json({
                 errorMessage: 'There is no product!',
@@ -369,4 +374,68 @@ app.get("/get-product", (req, res) => {
 
 app.listen(2000, () => {
   console.log("Server is Runing On port 2000");
+
 });
+
+
+// Get all cars
+// app.get("/getAll", (req, res) => {
+
+//   ((data) => {
+//     res.send({cars: data, anarana: "mino"});
+//   })
+//   .catch((err) => {
+//     res.status(500).send({
+//       message: err.message || "Some error occurred while retrieving car.",
+//     });
+//   });
+// })
+
+// app.get('/getAll', (req, res, next) => {
+//   console.log("======>",cars)
+//   product.find()
+//     .then(data => res.status(200).json({cars: data}))
+//     .catch(error => res.status(404).json({ error }));
+// });
+
+
+// app.get( '/getAll' = async (req,res) => {
+
+//   try{
+//     await product.find({}, (err, data)=>{
+//         if(err) res.status(400).json("Erreur de chargement");
+//         res.status(200).json(data)
+//     } ,console.log(data));
+// }catch(err){
+//     res.send({status: 500, message: "Data vide"})
+// }
+//  })
+
+
+
+// myRouter.route('/getAll')
+app.get(function (req, res) {
+  product.find(function (err, data) {
+    if (err) {
+      res.send(err);
+    }
+    res.json({ cars: data });
+  });
+})
+
+
+
+
+app.get("/getAll", (req, res) => {
+  product.find()
+    .then((data) => {
+      res.send({cars: data});
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving car.",
+      });
+    });
+
+});
+

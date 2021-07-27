@@ -25,8 +25,10 @@ export default class Dashboard extends Component {
       page: 1,
       search: '',
       products: [],
+      cars: [],
       pages: 0,
-      loading: false
+      loading: false,
+      message1: ""
     };
   }
 
@@ -39,10 +41,12 @@ export default class Dashboard extends Component {
         this.getProduct();
       });
     }
+   
+    
   }
 
   getProduct = () => {
-    
+
     this.setState({ loading: true });
 
     let data = '?';
@@ -62,7 +66,7 @@ export default class Dashboard extends Component {
         icon: "error",
         type: "error"
       });
-      this.setState({ loading: false, products: [], pages: 0 },()=>{});
+      this.setState({ loading: false, products: [], pages: 0 }, () => { });
     });
   }
 
@@ -302,7 +306,7 @@ export default class Dashboard extends Component {
               variant="contained"
               component="label"
             > Upload
-            <input
+              <input
                 id="standard-basic"
                 type="file"
                 accept="image/*"
@@ -382,7 +386,7 @@ export default class Dashboard extends Component {
               variant="contained"
               component="label"
             > Upload
-            <input
+              <input
                 id="standard-basic"
                 type="file"
                 accept="image/*"
@@ -456,7 +460,7 @@ export default class Dashboard extends Component {
                       onClick={(e) => this.handleProductEditOpen(row)}
                     >
                       Edit
-                  </Button>
+                    </Button>
                     <Button
                       className="button_style"
                       variant="outlined"
@@ -465,7 +469,7 @@ export default class Dashboard extends Component {
                       onClick={(e) => this.deleteProduct(row._id)}
                     >
                       Delete
-                  </Button>
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}
@@ -474,7 +478,7 @@ export default class Dashboard extends Component {
           <br />
           <Pagination count={this.state.pages} page={this.state.page} onChange={this.pageChange} color="primary" />
         </TableContainer>
-
+        
       </div>
     );
   }
